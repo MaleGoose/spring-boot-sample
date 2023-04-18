@@ -19,10 +19,11 @@ import java.util.Set;
 public class Person extends AbstractPersistable<Long> {
 
     @Embedded
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private Name name;
 
     @Email
+    @Column(unique = true)
     private String email;
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})

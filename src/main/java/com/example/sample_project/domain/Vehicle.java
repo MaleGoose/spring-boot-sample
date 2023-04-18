@@ -7,12 +7,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-@Entity
 @Data
+@Entity
 @NoArgsConstructor
 @SuperBuilder
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="vehicle_type", discriminatorType = DiscriminatorType.CHAR)
+@DiscriminatorValue("V")
 public class Vehicle {
 
     @Id
@@ -24,7 +26,7 @@ public class Vehicle {
 
     private Long horsePower;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, optional = false)
     private Person person;
 
 }

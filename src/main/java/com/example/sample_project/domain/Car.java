@@ -1,5 +1,6 @@
 package com.example.sample_project.domain;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,6 +13,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 @AllArgsConstructor
+@DiscriminatorValue("C")
 public class Car extends Vehicle{
 
     private boolean hasTrunk;
