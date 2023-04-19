@@ -39,6 +39,7 @@ In `@Test`
 3. Test status code with e.g. `andExpect(status().isOk())`
 4. Test JSON response with `andExpect(jsonPath().value(expected))`
    - `$` document root (e.g. `$.name`)
-   - `@` when response is an array
+   - `@` current node (most likely not needed) 
+   - array access using e.g. `$.vehicles[0].xyz`
 
 **Careful:** Lots of these methods have multiple imports. In general use `MockMvcRequestBuilders`, `MockMvcResultHandlers` & `MockMvcResultMatchers`. Easiest is to important everything from there by using `.*`
