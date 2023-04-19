@@ -40,3 +40,5 @@ In `@Test`
 4. Test JSON response with `andExpect(jsonPath().value(expected))`
    - `$` document root (e.g. `$.name`)
    - `@` when response is an array
+
+**Careful:** Lots of these methods have multiple imports. In general use `MockMvcRequestBuilders`, `MockMvcResultHandlers` & `MockMvcResultMatchers`. Easiest is to important everything from there by using `.*`

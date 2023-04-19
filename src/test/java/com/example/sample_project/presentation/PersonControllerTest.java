@@ -22,6 +22,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 @ExtendWith(SpringExtension.class)
 public class PersonControllerTest {
@@ -49,6 +50,7 @@ public class PersonControllerTest {
         mockMvc.perform(get(PATH + PATH_GET_EMAIL).accept(MediaType.APPLICATION_JSON))
                 //then
                 .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$.firstName").value(person.getName().getFirstName()))
                 .andExpect(jsonPath("$.lastName").value(person.getName().getLastName()))
                 .andExpect(jsonPath("$.email").value(person.getEmail()));
