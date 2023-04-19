@@ -1,17 +1,16 @@
 package com.example.sample_project.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
 @Entity
 @NoArgsConstructor
-@SuperBuilder
 @AllArgsConstructor
+@SuperBuilder
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="vehicle_type", discriminatorType = DiscriminatorType.CHAR)
 @DiscriminatorValue("V")

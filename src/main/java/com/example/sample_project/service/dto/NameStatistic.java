@@ -1,6 +1,8 @@
 package com.example.sample_project.service.dto;
 
+import com.example.sample_project.domain.MotorType;
 import com.example.sample_project.domain.Vehicle;
+import com.example.sample_project.persistence.projection.NameAndHorsepowerView;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +18,7 @@ public class NameStatistic {
 
     private String queriedLastName;
 
-    private List<Vehicle> topThree;
+    private List<NameAndHorsepowerView> topThree;
 
-    private String vehicleType;
+    private MotorType motorType;
 }

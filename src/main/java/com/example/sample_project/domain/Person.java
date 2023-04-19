@@ -26,7 +26,7 @@ public class Person extends AbstractPersistable<Long> {
     @Column(unique = true)
     private String email;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
     @Builder.Default
     private Set<Vehicle> vehicles = new HashSet<>();
 

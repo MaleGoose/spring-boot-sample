@@ -2,11 +2,16 @@ package com.example.sample_project.service;
 
 import com.example.sample_project.domain.*;
 import com.example.sample_project.persistence.VehicleRepository;
+import com.example.sample_project.persistence.projection.NameAndHorsepowerView;
 import com.example.sample_project.service.dto.NameStatistic;
+import com.example.sample_project.service.dto.TransferOwnershipCommand;
 import com.example.sample_project.service.dto.VehicleCommand;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -42,14 +47,25 @@ public class VehicleService {
     }
 
     public NameStatistic createNameStatistic(String containedInLastName, MotorType motorType){
-        var listOfVehicles = vehicleRepository.findAllByPerson_Name_LastNameContainingAndMotorTypeOrderByHorsePowerDesc(containedInLastName, motorType);
-
-        return null;
+        List<NameAndHorsepowerView> listOfVehicles = vehicleRepository.findAllByPerson_Name_LastNameContainingAndMotorTypeOrderByHorsePowerDesc(containedInLastName, motorType);
+        List<NameAndHorsepowerView> bestVehicles = listOfVehicles.stream().limit(3).collect(Collectors.toList());
+        return new NameStatistic(containedInLastName, bestVehicles, motorType);
     }
 
     @Transactional
-    public boolean changeOwnership(Long vehicleId, Long personId){
+    public Vehicle changeOwnership(Long vehicleId, TransferOwnershipCommand command){
+        Person fromPerson = personService.getPersonByEmail(command.getFrom())
+                .orElseThrow(() -> new IllegalArgumentException("No From-Person with this Email found!"));
+        Person toPerson = personService.getPersonByEmail(command.getFrom())
+                .orElseThrow(() -> new IllegalArgumentException("No To-Person with this Email found!"));
+        Vehicle transferedVehicle = vehicleRepository.findById(vehicleId)
+                .orElseThrow(() -> new IllegalArgumentException("No Transfer-Vehicle with this ID found!"));
 
-        return true;
+        fromPerson.removeVehicle(transferedVehicle);
+        transferedVehicle = vehicleRepository.save(transferedVehicle);
+        toPerson.addVehicle(transferedVehicle);
+        transferedVehicle.setPerson(toPerson);
+        transferedVehicle = vehicleRepository.save(transferedVehicle);
+        return transferedVehicle;
     }
 }
