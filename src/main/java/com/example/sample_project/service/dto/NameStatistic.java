@@ -1,4 +1,4 @@
-package com.example.sample_project.service.DTO;
+package com.example.sample_project.service.dto;
 
 import com.example.sample_project.domain.Vehicle;
 import lombok.AllArgsConstructor;

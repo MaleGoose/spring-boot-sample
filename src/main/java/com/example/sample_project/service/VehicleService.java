@@ -2,8 +2,8 @@ package com.example.sample_project.service;
 
 import com.example.sample_project.domain.*;
 import com.example.sample_project.persistence.VehicleRepository;
-import com.example.sample_project.service.DTO.NameStatistic;
-import com.example.sample_project.service.DTO.VehicleCommand;
+import com.example.sample_project.service.dto.NameStatistic;
+import com.example.sample_project.service.dto.VehicleCommand;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,25 +21,19 @@ public class VehicleService {
                 .orElseThrow(() -> new NullPointerException("No Person with this Email Address found!"));
         Vehicle vehicle;
         switch (type){
-            case CAR ->{
-                vehicle = Car.builder()
-                        .horsePower(command.getHorsePower())
-                        .person(person)
-                        .motorType(command.getMotorType())
-                        .hasTrunk(command.isHasTrunk())
-                        .build();
-            }
-            case TRUCK -> {
-                vehicle = Truck.builder()
-                        .horsePower(command.getHorsePower())
-                        .person(person)
-                        .motorType(command.getMotorType())
-                        .storageVolume(command.getStorageVolume())
-                        .build();
-            }
-            default -> {
-                throw new IllegalArgumentException("Invalid Type found!");
-            }
+            case CAR -> vehicle = Car.builder()
+                    .horsePower(command.getHorsePower())
+                    .person(person)
+                    .motorType(command.getMotorType())
+                    .hasTrunk(command.isHasTrunk())
+                    .build();
+            case TRUCK -> vehicle = Truck.builder()
+                    .horsePower(command.getHorsePower())
+                    .person(person)
+                    .motorType(command.getMotorType())
+                    .storageVolume(command.getStorageVolume())
+                    .build();
+            default -> throw new IllegalArgumentException("Invalid Type found!");
         }
         vehicle = vehicleRepository.save(vehicle);
         person.addVehicle(vehicle);
