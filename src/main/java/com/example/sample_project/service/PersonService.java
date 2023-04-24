@@ -18,28 +18,32 @@ public class PersonService {
     private final PersonRepository personRepository;
 
 
-    public Optional<Person> getPersonByEmail(String email){
+    public Optional<Person> getPersonByEmail(String email) {
         return personRepository.findByEmail(email);
     }
 
     @Transactional
-    public boolean findPersonWithMostHorsepowerInSumAndDelete(){
+    public boolean findPersonWithMostHorsepowerInSumAndDelete() {
         List<Person> persons = personRepository.findAll();
-        if(persons.isEmpty())
+        if (persons.isEmpty())
             return false;
 
         List<PersonAndSum> personAndSums = persons.stream().map(PersonAndSum::new).toList();
         PersonAndSum highestPerson = Collections.max(personAndSums, Comparator.comparing(PersonAndSum::getSumOfHorsePower));
-        personRepository.delete(highestPerson.getPerson());
+        try {
+            personRepository.delete(highestPerson.getPerson());
+        } catch (Exception e) {
+            return false;
+        }
         return true;
     }
 
     @Getter
-    public static class PersonAndSum{
+    public static class PersonAndSum {
         private final Person person;
         private final Long sumOfHorsePower;
 
-        public PersonAndSum(Person person){
+        public PersonAndSum(Person person) {
             this.person = person;
             this.sumOfHorsePower = person.getVehicles().stream().collect(Collectors.summarizingLong(Vehicle::getHorsePower)).getSum();
         }

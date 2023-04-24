@@ -1,6 +1,7 @@
 package com.example.sample_project;
 
 import com.example.sample_project.domain.*;
+import com.example.sample_project.service.dto.VehicleCommand;
 
 import java.util.List;
 
@@ -40,6 +41,10 @@ public class TestFixtures {
                 .storageVolume(1250.5)
                 .person(person)
                 .build();
+    }
+
+    public static VehicleCommand vehicleCommand1() {
+        return new VehicleCommand(VehicleType.TRUCK, MotorType.ELECTRIC, 150L, false, 50.0);
     }
 
     public static List<Vehicle> vehicleList(Person person1, Person person2){

@@ -34,6 +34,7 @@ public class PersonControllerTest {
 
     private static final String PATH = "/api/person";
     private static final String PATH_GET_EMAIL = "/mail@example.com";
+    private static final String HORSEPOWER = "/horsepower";
 
     @BeforeEach
     public void setup() {
@@ -65,6 +66,28 @@ public class PersonControllerTest {
         mockMvc.perform(get(PATH + PATH_GET_EMAIL).accept(MediaType.APPLICATION_JSON))
                 //then
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void ensureDeletingByHorsePowerWorksCorrectly() throws Exception {
+        //given
+        when(personService.findPersonWithMostHorsepowerInSumAndDelete()).thenReturn(true);
+
+        //when
+        mockMvc.perform(delete(PATH + HORSEPOWER).accept(MediaType.APPLICATION_JSON))
+                //then
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void ensureFailingDeleteByHorsePowerReturnsInternalServerError() throws Exception {
+        //given
+        when(personService.findPersonWithMostHorsepowerInSumAndDelete()).thenReturn(false);
+
+        //when
+        mockMvc.perform(delete(PATH + HORSEPOWER).accept(MediaType.APPLICATION_JSON))
+                //then
+                .andExpect(status().isInternalServerError());
     }
 
     @Test

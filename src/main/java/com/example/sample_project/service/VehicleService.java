@@ -21,11 +21,11 @@ public class VehicleService {
     private final PersonService personService;
 
     @Transactional
-    public Vehicle createNewVehicleWithTypeAndConnectionToPerson(String personEmail, VehicleType type, VehicleCommand command){
+    public Vehicle createNewVehicleWithTypeAndConnectionToPerson(String personEmail, VehicleCommand command){
         var person = personService.getPersonByEmail(personEmail)
                 .orElseThrow(() -> new NullPointerException("No Person with this Email Address found!"));
         Vehicle vehicle;
-        switch (type){
+        switch (command.getType()){
             case CAR -> vehicle = Car.builder()
                     .horsePower(command.getHorsePower())
                     .person(person)
