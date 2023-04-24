@@ -2,9 +2,37 @@
 
 ## Persistence
 
+- Annotate entities with `@Entity`. `@Table` may also be used, but is only needed, e.g. renaming table, configuring a multiple column unique constraint.
+- Entities may extend `AbstractPersistable<?>` which implements a primary key field with the specified type. However, does not work with `@Inheritance`. In this case or when manually wanting to define a PK field use `@Id` and `@GeneratedValue` (expection: UUID, as UUID can be uniquely generated when creating entity)
+- Embeddable Objects are annotated with `@Embedabble` and the field where they are used has the specific class as datatype with the `@Embedded` annotation.
+- `@Column` may be used to enforce unique/nullable on a domain level.
+- Enums require `@Enumerated` on the field where they are used. EnumType.String mostly, because ordinal breaks the enum if the order is changed.
+- A list/set of enums/embedded objects additionally requires the `@ElementCollection` annotation.
+- `@Inheritance` is used on the super class in inheritance. Inheritance-Strategies can be defined such as `InheritanceType.SINGLE_TABLE` (Roll-Up), `InheritanceType.TABLE_PER_CLASS` (Roll-Down), `InheritanceType.JOINED` (Combination, as common fields are in super-class table and specific fields in table of inherited classes). Inherited classes extend super class and `@SuperBuilder` may be used on super and also inherited classes so that a builder may be used.
+
+### Relations
+
+- `@OneToOne` one entity is connected to one other entity.
+- `@OneToMany` one entity is linked to many entities, which means that the datatype can be a list, set or any collection type.  
+- `@ManyToOne` many entities of this type are linked to one entity of the other type, the type is the class of the related entity. `@OneToMany` can be used on the other side.
+- `@ManyToMany` rarely used as an extra entity between the entities is used, which includes two `@OneToMany`
+
+Bidirectional relations are relations which are defined on both sides. In a `@ManyToOne` / `@OneToMany` relation this can be difficult, but an add/remove method can simplify the interaction with a set/list. These methods simply take an object and either add or remove it from the collection. Saving/Persisting is important in bidirectional relations, as only saved entities should be added to the collection, so either relying on cascade types or a proper save order is important.
+
 ### Cascading
 
+Cascading types can be used in relations, but are not required. However, they can be very beneficial, as they simplify operations between relations. 
+
+- `CascadeType.ALL` includes all the following CascadeTypes
+- `CascadeType.PERSIST` used for handing over the save/persist operation, when base entity is saved, also the relationship-entity is saved.
+- `CascadeType.MERGE` when saving the base entity, merges relationship entities with the same identifier, e.g. two relations with the same identifier get merged into one entity.
+- `CascadeType.REMOVE` also deletes entities which have a relation with the base entity.
+- `CascadeType.REFRESH` also rereads the child values from the database, when reading base entity.
+- `CascadeType.DETACH` same as remove, but also deletes from persistence context. 
+
 ## Service
+
+- Use `@Transactional` to enable transactions on a certain method. If an error occurs, the changes get rolled-back, but if everything works, the changes get committed. Therefore, this annotation should be used when handling create-, update- or delete-operations, as only completely successful executions change the data. 
 
 ## Presentation
 
