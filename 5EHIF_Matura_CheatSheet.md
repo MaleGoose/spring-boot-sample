@@ -13,7 +13,7 @@
 ### Relations
 
 - `@OneToOne` one entity is connected to one other entity.
-- `@OneToMany` one entity is linked to many entities, which means that the datatype can be a list, set or any collection type.  
+- `@OneToMany` one entity is linked to many entities, which means that the datatype can be a collection.
 - `@ManyToOne` many entities of this type are linked to one entity of the other type, the type is the class of the related entity. `@OneToMany` can be used on the other side.
 - `@ManyToMany` rarely used as an extra entity between the entities is used, which includes two `@OneToMany`
 
@@ -30,18 +30,22 @@ Cascading types can be used in relations, but are not required. However, they ca
 - `CascadeType.REFRESH` also rereads the child values from the database, when reading base entity.
 - `CascadeType.DETACH` same as remove, but also deletes from persistence context. 
 
+### Testing
+
+Test class with `@DataJpaTest` and `@Autowired` on repository instances.
+
 ## Service
 
 - Use `@Transactional` to enable transactions on a certain method. If an error occurs, the changes get rolled-back, but if everything works, the changes get committed. Therefore, this annotation should be used when handling create-, update- or delete-operations, as only completely successful executions change the data. 
 
 ## Presentation
 
-Good practice to map to Dtos
+Good practice to map to **DTO**
 
 ### Annotations
 
 - Annotate class with `@RestController`, `@RequestMapping("base-url")` & `@AllArgsConstructor` to enable spring injecting service classes
-- Endpoints annotated with `GET`, `POST`, `PUT`, `PATCH`, `DELETE`and then a path `("my-path/id")` --> Will now be accessible under `"/base-url/my-path/id"`
+- Endpoints annotated with `GET`, `POST`, `PUT`, `PATCH`, `DELETE`and then a path `("my-path/xyz")` --> Will now be accessible under `"/base-url/my-path/xyz"`
 - `@RequestParam boolean include` to create a request param at the end of the path --> `"/base-url/my-path/id?include={true/false}"`
 
 ### Response Codes
@@ -52,6 +56,8 @@ Spring will interfer most Response Codes by default:
 - **500** If no specifc error can be found
 
 Can also set and return response codes manually by using e.g. `ResponseEntity.created(body).build()`
+
+When sending `201 - Created` a locatin header is to be provided by using `URI`, which links where to access the created instance. `URI.create("basepath/myId")` then used as argument for `.created(uri)`. 
 
 ### Testing (Unit)
 

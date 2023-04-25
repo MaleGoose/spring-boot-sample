@@ -28,8 +28,7 @@ public class PersonService {
         if (persons.isEmpty())
             return false;
 
-        List<PersonAndSum> personAndSums = persons.stream().map(PersonAndSum::new).toList();
-        PersonAndSum highestPerson = Collections.max(personAndSums, Comparator.comparing(PersonAndSum::getSumOfHorsePower));
+        var highestPerson = persons.stream().map(PersonAndSum::new).max(Comparator.comparing(PersonAndSum::getSumOfHorsePower)).get();
         try {
             personRepository.delete(highestPerson.getPerson());
         } catch (Exception e) {

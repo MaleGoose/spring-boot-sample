@@ -47,7 +47,7 @@ class VehicleControllerTest {
                         .content(json)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.motorType").value("DIESEL"))
                 .andExpect(jsonPath("$.horsePower").value(200))

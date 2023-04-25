@@ -23,7 +23,7 @@ public class VehicleController {
     public HttpEntity<Vehicle> changeOwnership(@RequestBody TransferOwnershipCommand cmd, @PathVariable Long vehicleId) {
         var returned = vehicleService.changeOwnership(vehicleId, cmd);
 
-        return ResponseEntity.created(URI.create("%s/%s".formatted(PATH, vehicleId))).body(returned);
+        return ResponseEntity.ok(returned);
     }
 
     @PostMapping("/{personMail}")

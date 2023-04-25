@@ -48,4 +48,17 @@ public class VehicleRepositoryTest {
         Assertions.assertEquals(person2, returnedEntity.getPerson());
 
     }
+
+    @Test
+    void testGetAllCars() {
+        //when
+        var returned = vehicleRepository.findAllBy();
+
+        //then
+        Assertions.assertNotNull(returned);
+        Assertions.assertEquals(1, returned.size());
+        Assertions.assertEquals(Car.class, returned.get(0).getClass());
+        Assertions.assertEquals(person1, returned.get(0).getPerson());
+
+    }
 }
