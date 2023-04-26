@@ -64,7 +64,7 @@ Spring will interfer most Response Codes by default:
 
 Can also set and return response codes manually by using e.g. `ResponseEntity.created(body).build()`
 
-When sending `201 - Created` a location header is to be provided by using `URI`, which links where to access the created instance. `URI.create("basepath/myId")` then used as argument for `.created(uri)`. 
+When sending `201 - Created` a location header is to be provided by using `URI`, which links where to access the created instance. `URI.create("%s/%s".formatted(path,id))` then used as argument for `.created(uri)`. 
 
 ### Testing (Unit)
 
