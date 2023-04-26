@@ -3,7 +3,7 @@
 ## Persistence
 
 - Annotate entities with `@Entity`. `@Table` may also be used, but is only needed, e.g. renaming table, configuring a multiple column unique constraint.
-- Entities may extend `AbstractPersistable<?>` which implements a primary key field with the specified type. However, does not work with `@Inheritance`. In this case or when manually wanting to define a PK field use `@Id` and `@GeneratedValue` (expection: UUID, as UUID can be uniquely generated when creating entity)
+- Entities may extend `AbstractPersistable<?>` which implements a primary key field with the specified type. However, does not work with `@Inheritance`. In this case or when manually wanting to define a PK field use `@Id` and `@GeneratedValue` (exception: UUID, as UUID can be uniquely generated when creating entity)
 - Embeddable Objects are annotated with `@Embedabble` and the field where they are used has the specific class as datatype with the `@Embedded` annotation.
 - `@Column` may be used to enforce unique/nullable on a domain level.
 - Enums require `@Enumerated` on the field where they are used. EnumType.String mostly, because ordinal breaks the enum if the order is changed.
@@ -38,14 +38,21 @@ Test class with `@DataJpaTest` and `@Autowired` on repository instances.
 
 - Use `@Transactional` to enable transactions on a certain method. If an error occurs, the changes get rolled-back, but if everything works, the changes get committed. Therefore, this annotation should be used when handling create-, update- or delete-operations, as only completely successful executions change the data. 
 
+### Testing 
+
+- Annotate Test Class with `@ExtendWith(SpringExtenstion.class)`
+- Create `@MockBean` of repository 
+
 ## Presentation
 
-Good practice to map to **DTO**
+Good practice mapping to **DTO**
 
 ### Annotations
 
 - Annotate class with `@RestController`, `@RequestMapping("base-url")` & `@AllArgsConstructor` to enable spring injecting service classes
-- Endpoints annotated with `GET`, `POST`, `PUT`, `PATCH`, `DELETE`and then a path `("my-path/xyz")` --> Will now be accessible under `"/base-url/my-path/xyz"`
+- Endpoints annotated with `GET`, `POST`, `PUT` (idempotent), `PATCH`, `DELETE`and then a path `("my-path/xyz")` --> Will now be accessible under `"/base-url/my-path/xyz"`
+- `@PathVariable <type> <name>` for `"/{<name>}"` variables in path
+- `@RequestBody <CommandClass> command` for JSON body
 - `@RequestParam boolean include` to create a request param at the end of the path --> `"/base-url/my-path/id?include={true/false}"`
 
 ### Response Codes
@@ -53,11 +60,11 @@ Good practice to map to **DTO**
 Spring will interfer most Response Codes by default:
 - **405** Bad Request if JSON is incorrect etc.
 - **404** If the path does not match
-- **500** If no specifc error can be found
+- **500** If no specific error can be found
 
 Can also set and return response codes manually by using e.g. `ResponseEntity.created(body).build()`
 
-When sending `201 - Created` a locatin header is to be provided by using `URI`, which links where to access the created instance. `URI.create("basepath/myId")` then used as argument for `.created(uri)`. 
+When sending `201 - Created` a location header is to be provided by using `URI`, which links where to access the created instance. `URI.create("basepath/myId")` then used as argument for `.created(uri)`. 
 
 ### Testing (Unit)
 
