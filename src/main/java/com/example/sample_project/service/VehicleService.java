@@ -56,7 +56,7 @@ public class VehicleService {
     public Vehicle changeOwnership(Long vehicleId, TransferOwnershipCommand command){
         Person fromPerson = personService.getPersonByEmail(command.getFrom())
                 .orElseThrow(() -> new IllegalArgumentException("No From-Person with this Email found!"));
-        Person toPerson = personService.getPersonByEmail(command.getFrom())
+        Person toPerson = personService.getPersonByEmail(command.getTo())
                 .orElseThrow(() -> new IllegalArgumentException("No To-Person with this Email found!"));
         Vehicle transferedVehicle = vehicleRepository.findById(vehicleId)
                 .orElseThrow(() -> new IllegalArgumentException("No Transfer-Vehicle with this ID found!"));
