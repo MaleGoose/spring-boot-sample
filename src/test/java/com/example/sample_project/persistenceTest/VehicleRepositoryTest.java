@@ -59,6 +59,21 @@ public class VehicleRepositoryTest {
         Assertions.assertEquals(1, returned.size());
         Assertions.assertEquals(Car.class, returned.get(0).getClass());
         Assertions.assertEquals(person1, returned.get(0).getPerson());
+    }
 
+    @Test
+    void testFindAllByPerson_Name_LastNameContainingAndMotorTypeOrderByHorsePowerDesc(){
+        var returned = vehicleRepository.findAllByPerson_Name_LastNameContainingAndMotorTypeOrderByHorsePowerDesc("s",MotorType.DIESEL);
+
+        Assertions.assertEquals(2,returned.size());
+        Assertions.assertEquals(200L,returned.get(0).horsePower());
+    }
+
+    @Test
+    void testNameAndHorsePowerView(){
+        var returned = vehicleRepository.nameAndHorsePowerView("s",MotorType.DIESEL);
+
+        Assertions.assertEquals(2,returned.size());
+        Assertions.assertEquals(200L,returned.get(0).horsePower());
     }
 }
