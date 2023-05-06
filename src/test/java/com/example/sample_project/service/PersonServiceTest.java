@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -18,11 +20,11 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith(MockitoExtension.class)
 class PersonServiceTest {
 
     private PersonService personService;
-    @MockBean
+    @Mock
     private PersonRepository personRepository;
 
     @BeforeEach
@@ -57,6 +59,7 @@ class PersonServiceTest {
     @Test
     void ensureDeletingReturnsFalseWhenPersistenceExceptionIsThrown() {
         //given
+        when(personRepository.findAll()).thenReturn(TestFixtures.personList());
         doThrow(new PersistenceException()).when(personRepository).delete(ArgumentMatchers.any());
 
         //when

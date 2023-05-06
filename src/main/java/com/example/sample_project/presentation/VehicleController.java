@@ -8,8 +8,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Map;
 
 @RestController
 @RequestMapping(VehicleController.PATH)
@@ -29,8 +31,10 @@ public class VehicleController {
     @PostMapping("/{personMail}")
     public HttpEntity<Vehicle> createVehicle(@RequestBody VehicleCommand cmd, @PathVariable String personMail) {
         var returned = vehicleService.createNewVehicleWithTypeAndConnectionToPerson(personMail, cmd);
-
-        return ResponseEntity.created(URI.create("%s/%s".formatted(PATH, returned.getId()))).body(returned);
+        URI self = UriComponentsBuilder.fromPath(PATH + "/{id}")
+                .uriVariables(Map.of("id", returned.getId()))
+                .build().toUri();
+        return ResponseEntity.created(self).body(returned);
     }
 
 }

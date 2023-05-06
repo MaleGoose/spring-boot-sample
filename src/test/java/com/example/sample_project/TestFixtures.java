@@ -1,6 +1,7 @@
 package com.example.sample_project;
 
 import com.example.sample_project.domain.*;
+import com.example.sample_project.service.dto.TransferOwnershipCommand;
 import com.example.sample_project.service.dto.VehicleCommand;
 
 import java.util.List;
@@ -41,6 +42,11 @@ public class TestFixtures {
                 .storageVolume(1250.5)
                 .person(person)
                 .build();
+    }
+
+    public static TransferOwnershipCommand transferOwnershipCommand1(){
+        return new TransferOwnershipCommand("from@gmail.com", "to@gmail,com");
+
     }
 
     public static VehicleCommand vehicleCommand1() {
