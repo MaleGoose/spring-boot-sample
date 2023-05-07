@@ -1,0 +1,26 @@
+@startuml
+title Dependency-Injection
+
+header Inversion of control (dependencies are not created within a class but provided via a contstructor, method or property)
+
+interface DI{
++ doSth()
+}
+
+class DependencyA{
+// implementing methods
+}
+
+class Client {
+- DI dependency
++ Client(DI dependency)
+}
+
+DI <|- DependencyA
+
+Client --> DI
+
+
+
+
+@enduml

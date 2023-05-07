@@ -1,0 +1,23 @@
+@startuml
+title Command
+header stores information of queries in object
+
+interface Command {
+// some stuff
+}
+
+class Update {
+}
+class Delete {
+}
+
+Command <|-- Update
+Command <|-- Delete
+
+class Invoker {
+- Command command
+}
+
+Invoker --> Command
+
+@enduml

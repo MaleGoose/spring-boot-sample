@@ -1,0 +1,24 @@
+@startuml
+title Visitor
+header extracts algorithms from domain classes into a visitor class
+
+interface Visitor {
++ visit(Class A)
++ visit(Class B)
+}
+
+Visitor <|-- ConcreteVisitor
+
+interface Class {
++ accept(Visitor v)
+}
+
+Class <|-- ClassA
+Class <|-- ClassB
+
+Class --> Visitor
+
+Visitor -->ClassA
+Visitor -->ClassB
+
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+title Front-Controller
+header one controller to rule them all
+
+class Controller {
+}
+
+abstract Command {
+}
+
+Command <|-- A
+Command <|-- B
+
+Controller --> Command
+@enduml

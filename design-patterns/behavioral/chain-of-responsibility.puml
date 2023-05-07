@@ -1,0 +1,24 @@
+@startuml
+title Chain-of-responsibility
+header self-explanatory
+
+interface Handler{
++ handle()
+}
+
+class BaseHandler{
+- Handler nextHandler
++ setNext(Handler handler)
++ handle()
+}
+
+class ConcreteHandler{
+// implementing interfaces
+}
+
+Handler <|-- BaseHandler
+BaseHandler <|-- ConcreteHandler
+
+Client --> Handler : executes Handlers
+
+@enduml

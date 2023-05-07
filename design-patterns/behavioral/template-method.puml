@@ -1,0 +1,20 @@
+@startuml
+title Template-Method
+header simplifies a monolith algo by providing a superclass that defines all steps and breaking that into different implementations
+
+abstract Template{
++ step1()
++ step2()
++ step3()
+...
++ ...()
+}
+
+class AlgoA{
++ step3()
+}
+
+Template <|-- AlgoA
+Template <|-- AlgoB
+
+@enduml

@@ -1,0 +1,17 @@
+@startuml
+title Facade
+header class that provided simple interface to complex subsystem, can be enhanced with composite pattern
+
+class Facade{
+- someLinkToServices
++ someOperation()
+}
+
+Client --> Facade
+Facade ...> Service1
+Facade ...> Service2
+Facade ...> Service3
+Facade ...> Service4
+
+
+@enduml

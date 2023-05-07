@@ -1,0 +1,15 @@
+@startuml
+title Singleton
+
+header To ensure only one instance of an object exsits
+
+
+class Class{
+- Class instance
+- Class()
++ Class getInstance() // returns Class, and creates it if not existent
+}
+
+Client ---> Class
+
+@enduml
