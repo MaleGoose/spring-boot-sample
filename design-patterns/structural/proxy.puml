@@ -1,0 +1,19 @@
+@startuml
+title Proxy
+header proxy implements same class as og object to provide additional logic before calling real class
+interface Service {
+}
+
+class Proxy {
+- Serivce realService
++ additionalMethod()
+// e.g. check access rights
+}
+
+Client --> Service
+
+Service <|-- RealService
+Service <|- Proxy
+Proxy o--> RealService
+
+@enduml

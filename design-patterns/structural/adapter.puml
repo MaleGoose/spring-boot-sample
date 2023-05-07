@@ -1,0 +1,25 @@
+@startuml
+title Adapter
+
+header Adapt old code or use different input for your own code
+
+class Json{
++ returnData()
+}
+
+class Adapter{
+- Xml xml
++ Adapter(Xml xml)
++ returnData()
+}
+
+class Xml{
+// XML shit
+}
+
+Client --> Json
+
+Json <|- Adapter
+Adapter --> Xml
+
+@enduml

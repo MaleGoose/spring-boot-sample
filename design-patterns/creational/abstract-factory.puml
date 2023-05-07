@@ -1,0 +1,55 @@
+@startuml
+title Abstract-Factory
+
+header Usecase: For a family of related classes with different variants
+
+interface ClassA{
+
+}
+
+class AA{
+
+}
+
+class AB{
+
+}
+
+interface ClassB{
+
+}
+
+class BA{
+
+}
+
+class BB{
+
+}
+
+interface Factory {
+createClassA()
+createClassB()
+}
+
+class FactoryA {
+// creation of specific Class
+}
+
+class FactoryB {
+// creation of specific Class
+}
+
+ClassA <|-- AB
+ClassA <|-- AA
+FactoryA ---> AA
+FactoryA ---> AB
+
+ClassB <|-- BB
+ClassB <|-- BA
+FactoryB ---> BA
+FactoryB ---> BB
+
+Factory <|-- FactoryA
+Factory <|-- FactoryB
+@enduml

@@ -1,0 +1,20 @@
+@startuml
+title State
+header state machine to check the state of an object
+
+interface State {
+}
+
+class ConcreteState{
+- Class class
+}
+
+class Class {
+- State state
+}
+
+State <|-- ConcreteState
+Class o--> State
+ConcreteState --> Class
+
+@enduml

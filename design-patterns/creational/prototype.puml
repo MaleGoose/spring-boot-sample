@@ -1,0 +1,22 @@
+@startuml
+title Prototype Method
+
+header create a complete copy of object
+
+interface Prototype{
++ Prototype clone()
+}
+
+class ClassA{
+// Class logic
++ Prototype clone() // returns ClassA objects
+}
+
+
+Prototype <|-- ClassA
+
+Client ---> Prototype
+
+
+
+@enduml

@@ -1,0 +1,21 @@
+@startuml
+title Observer
+header allows objects to subscribe to a publisher that notifies subscribers
+
+interface Subscriber {
++ update()
+}
+
+class Publisher {
+- Subscriber[] subscribers
+- mainState
++ subscribe(Subscriber s)
++ unsubscribe(Subscriber s)
++ notify()
+}
+
+Subscriber <|-- ConcreteSubscribers
+Publisher o--> Subscriber
+
+
+@enduml

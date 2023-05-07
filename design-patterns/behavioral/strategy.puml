@@ -1,0 +1,18 @@
+@startuml
+title Strategy
+header similar to template method, multiple algos are extracted into strategy subclasses
+
+interface Strategy {
+}
+
+class ConcreteStrategy{
+}
+
+class Class {
+- Strategy strategy
+}
+
+Strategy <|-- ConcreteStrategy
+Class o--> Strategy
+
+@enduml

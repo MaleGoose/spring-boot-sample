@@ -1,0 +1,24 @@
+@startuml
+title Delegation
+header delegates function of one class to another to reuse code
+interface Class {
+    + request()
+}
+
+class ClassA {
+    + request()
+    + someAFunction()
+}
+
+class ClassB {
+    - ClassA delegation
+    + request()
+    + someAFunction()
+}
+
+Class <|-- ClassB
+Class <|-- ClassA
+
+ClassB -> ClassA: delegates someAFunction() via delegation.someAFunction()
+
+@enduml

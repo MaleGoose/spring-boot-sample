@@ -1,0 +1,16 @@
+@startuml
+title Composite
+header to build tree like structures
+
+interface MainClass{
+}
+
+MainClass <|-- A
+MainClass <|-- B
+
+B <|-- B1
+
+A <|-- A1
+A <|-- A2
+
+@enduml

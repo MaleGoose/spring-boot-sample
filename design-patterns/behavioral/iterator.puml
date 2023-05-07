@@ -1,0 +1,21 @@
+@startuml
+title Iterator
+header allows traversing of a collection without knowing the underlying structure
+
+interface Iterator {
+}
+
+interface IterableCollection{
+}
+
+class ConcreteIterator{}
+class ConcreteCollection{}
+
+Iterator <|- ConcreteIterator
+IterableCollection <|-- ConcreteCollection
+
+IterableCollection .> Iterator
+
+ConcreteIterator <-> ConcreteCollection
+
+@enduml

@@ -1,0 +1,37 @@
+@startuml
+title Factory-Method
+
+header Usecase: One Factory for a family of Classes
+
+interface Class{
+
+}
+
+class A{
+
+}
+
+class B{
+
+}
+
+class Factory {
++ createClass()
+}
+
+class FactoryA {
++ createClass() //specific Class
+}
+
+class FactoryB {
++ createClass() //specific Class
+}
+
+Factory ---> Class
+
+Class <|- B
+Class <|-- A
+
+Factory <|-- FactoryA
+Factory <|-- FactoryB
+@enduml

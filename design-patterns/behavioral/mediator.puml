@@ -1,0 +1,19 @@
+@startuml
+title Mediator
+header handles communication with sublcasses so that subclasses can be reused
+
+interface Mediator {}
+
+Mediator <|--- ConcreteMediator
+ConcreteMediator o-> ComponentA
+ConcreteMediator o-> ComponentB
+ConcreteMediator o-> ComponentC
+ConcreteMediator o-> ComponentD
+
+ComponentA --> Mediator
+ComponentB --> Mediator
+ComponentC --> Mediator
+ComponentD --> Mediator
+
+
+@enduml

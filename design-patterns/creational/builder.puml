@@ -1,0 +1,30 @@
+@startuml
+title Builder Method
+
+header Streamline the construction of the same object with different variants
+
+interface Builder {
+}
+
+class Director {
+- Builder builder
+
+}
+
+class BuilderA {
+- ClassA result
++ ClassA returnResult()
+}
+
+class ClassA {
+}
+
+Builder <|- BuilderA
+BuilderA --> ClassA
+
+Director --> Builder
+
+
+
+
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+title Decorator
+header wraps classes to add more functionality
+interface Component {
++ someFunction()
+}
+
+class Decorator {
+- Component wrappee
+}
+
+
+
+
+Client --> Component
+
+Decorator <|-- ConcreteDecorator
+Decorator o--> Component
+Component <|-- ConcreteComponent
+Component <|-- Decorator
+
+@enduml
